@@ -1,4 +1,22 @@
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+import { railsAxios } from "../common/axiosBais";
+
+const mail = ref("");
+
+const loginSubmit = () => {
+  const RESOURCE = "/user?mail=" + mail.value;
+  railsAxios
+    .get(RESOURCE)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      alert(`${mail.value} に該当するユーザーはいません`);
+      console.log(err);
+    });
+};
+</script>
 
 <template>
   <div class="page">
@@ -6,10 +24,10 @@
     <div class="login-form">
       <div class="input_box">
         <label>メールアドレス</label>
-        <input type="text" name="mail" id="mail" />
+        <input v-model="mail" type="text" name="mail" id="mail" />
       </div>
       <div class="btn_box">
-        <button>Login</button>
+        <button @click="loginSubmit">Login</button>
       </div>
     </div>
   </div>
