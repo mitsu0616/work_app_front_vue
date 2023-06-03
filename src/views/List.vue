@@ -1,5 +1,9 @@
 <script setup></script>
 
-<template></template>
+<template>
+  <div class="page">
+    <h1>List</h1>
+  </div>
+</template>
 
-<style scoped></style>
+<style lang="scss" scoped></style>
