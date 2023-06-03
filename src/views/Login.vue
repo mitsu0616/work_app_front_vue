@@ -1,15 +1,21 @@
 <script setup>
 import { ref } from "vue";
 import { railsAxios } from "../common/axiosBais";
+import { useWorkAppStore } from "../store/workApp";
+import { useRouter } from 'vue-router'
 
 const mail = ref("");
+
+const store = useWorkAppStore();
+const router = useRouter();
 
 const loginSubmit = () => {
   const RESOURCE = "/user?mail=" + mail.value;
   railsAxios
     .get(RESOURCE)
     .then((res) => {
-      console.log(res.data);
+      store.setUserId(res.data.user_id);
+      router.push({ path: "/today" });
     })
     .catch((err) => {
       alert(`${mail.value} に該当するユーザーはいません`);
