@@ -31,13 +31,20 @@ const router = createRouter({
 import { useWorkAppStore } from "../store/workApp";
 
 router.beforeEach((to, from, next) => {
+  // 中でstoreを定義する必要がある(外で定義すると以下のエラーが出る)
+  // Uncaught Error: [🍍]: "getActivePinia()" was called but there was no active Pinia. Did you forget to install pinia?
   const store = useWorkAppStore();
-  console.log(store.user_id);
 
+  // 既にログイン済みであればログインページにはいかない
+  if(to.path == "/login" && store.user_id) {
+    return next("/today")
+  }
+  
+  // 未ログインの場合はログインページに飛ばす
   if (to.matched.some((page) => page.meta.requireAuth) && !store.user_id) {
-    next("/login");
+    return next("/login");
   } else {
-    next();
+    return next();
   }
 });
 
