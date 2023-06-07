@@ -7,14 +7,18 @@ export const getToday = () => {
   return `${year}-${month}-${day}`;
 };
 
-export const formatTime = (now) => {
-  const year = now.getFullYear();
-  const month = ("0" + (now.getMonth() + 1)).slice(-2);
-  const day = ("0" + now.getDate()).slice(-2);
+export const getDateAndTime = (data) => {
+  const targetDay = new Date(data);
+  const year = targetDay.getFullYear();
+  const month = ("0" + (targetDay.getMonth() + 1)).slice(-2);
+  const day = ("0" + targetDay.getDate()).slice(-2);
 
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
+  const hours = ("0" + targetDay.getHours()).slice(-2);
+  const minutes = ("0" + targetDay.getMinutes()).slice(-2);
+  const seconds = ("0" + targetDay.getSeconds()).slice(-2);
 
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  return {
+    date: `${year}-${month}-${day}`,
+    time: `${hours}:${minutes}:${seconds}`,
+  };
 };
