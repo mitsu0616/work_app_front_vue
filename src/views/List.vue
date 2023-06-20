@@ -97,6 +97,23 @@ watch(targetMonth, async () => {
     margin: 10px 20px;
     padding: 10px;
   }
+  table {
+    width: 80%;
+    margin: 0 auto;
+    tr {
+      td {
+        border: 1px solid #ddd;
+        &:nth-child(1), &:nth-child(2){
+          width: 10%;
+          text-align: center;
+        }
+        &:nth-child(3), &:nth-child(4){
+          width: 40%;
+          text-align: center;
+        }
+      }
+    }
+  }
   .btm-menu {
     margin: 20px;
     .btm-menu-link,
