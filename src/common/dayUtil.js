@@ -22,3 +22,36 @@ export const getDateAndTime = (data) => {
     time: `${hours}:${minutes}:${seconds}`,
   };
 };
+
+export const getDateList = (targetYear, targetMonth, targetWorkData) => {
+  const start = new Date(targetYear, targetMonth - 1, 1);
+  let day = start.getDay();
+  const last = new Date(targetYear, targetMonth, 0);
+  const lastDate = last.getDate();
+
+  const dateList = [];
+  for (let i = 1; i <= lastDate; i++) {
+    dateList.push({
+      date: i,
+      day: formatDay[day],
+    });
+
+    day = day < 6 ? (day += 1) : 0;
+  }
+
+  targetWorkData.forEach((e) => {
+    const d = Number(e.date.split("-")[2]);
+    if (e.start_time) {
+      console.log(d, e.start_time);
+      dateList[d - 1].start_time = getDateAndTime(e.start_time).time;
+    }
+    if (e.end_time) {
+      console.log(d, e.end_time);
+      dateList[d - 1].end_time = getDateAndTime(e.end_time).time;
+    }
+  });
+
+  return dateList;
+};
+
+const formatDay = ["Sun", "Mon", "Tue", "Wen", "Thu", "Fri", "Sat"];
